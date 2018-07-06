@@ -18,7 +18,10 @@ namespace WcfService1
         string GetData(string value);
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "GetBook/{bookId}")]
+        string GetBook(string bookId);
+        [OperationContract]
+        string InsertBook(BookDetails newBook);
 
         // TODO: Add your service operations here
     }
@@ -26,23 +29,48 @@ namespace WcfService1
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]//describes the data that needs to be exchanged between provider and consumer
-    public class CompositeType
+    public class BookDetails
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        string isbn = string.Empty;
+        string title = string.Empty;
+        string author = string.Empty;
+        string pages = string.Empty;
+        string publisher = string.Empty;
 
         [DataMember]
-        public bool BoolValue
+        public string Isbn
         {
-            get { return boolValue; }
-            set { boolValue = value; }
+            get { return isbn; }
+            set { isbn = value; }
         }
 
         [DataMember]
-        public string StringValue
+        public string Title
         {
-            get { return stringValue; }
-            set { stringValue = value; }
+            get { return title; }
+            set { title = value; }
+        }
+
+        [DataMember]
+        public string Author
+        {
+            get { return author; }
+            set { author = value; }
+        }
+
+        [DataMember]
+        public string Pages
+        {
+            get { return pages; }
+            set { pages = value; }
+        }
+
+       
+        [DataMember]
+        public string Publisher
+        {
+            get { return publisher; }
+            set { publisher = value; }
         }
     }
 }

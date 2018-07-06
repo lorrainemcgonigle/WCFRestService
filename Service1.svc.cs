@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -8,26 +10,42 @@ using System.Text;
 
 namespace WcfService1
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
+    //This is the main file for the WCF services. Inherits the IService interface and implements all
+    //of the methods of the operation contracts
     public class Service1 : IService1
     {
+        string connection_string = ConfigurationManager.ConnectionStrings["BooksConnectionString"].ConnectionString.ToString();
         public string GetData(string value)
         {
             return string.Format("You entered: {0}", value);
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public string GetBook(string bookId)
         {
-            if (composite == null)
+            return string.Format("book");
+        }
+        public string InsertBook(BookDetails newBook)
+        {
+            string message;
+            SqlConnection conn = new SqlConnection(connection_string);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("INSERT into BookDetails(Isbn, Title, Author, Pages, Publisher) VALUES(@Isbn, @Title, @Author, @Pages, @Publisher)", conn);
+            cmd.Parameters.Add("@Isbn", System.Data.SqlDbType.VarChar).Value = newBook.Isbn;
+            cmd.Parameters.Add("@Title", System.Data.SqlDbType.VarChar).Value = newBook.Title;
+            cmd.Parameters.Add("@Author", System.Data.SqlDbType.VarChar).Value = newBook.Author;
+            cmd.Parameters.Add("@Pages", System.Data.SqlDbType.VarChar).Value = newBook.Pages;
+            cmd.Parameters.Add("@Publisher", System.Data.SqlDbType.VarChar).Value = newBook.Publisher;
+            int result = cmd.ExecuteNonQuery();
+            if(result == 1)
             {
-                throw new ArgumentNullException("composite");
+                message = newBook.Title + " entered successfully";
             }
-            if (composite.BoolValue)
+            else
             {
-                composite.StringValue += "Suffix";
+                message = newBook.Title + " not entered successfully";
             }
-            return composite;
+            conn.Close();
+            return message;
         }
     }
 }
