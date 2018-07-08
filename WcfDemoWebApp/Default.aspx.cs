@@ -61,28 +61,28 @@ namespace WcfDemoWebApp
 
                 GridViewBookDetails.DataSource = proxy.GetBooks();
                 GridViewBookDetails.DataBind();
-                lblMsg.Text = "Record Saved Successfully";
+                lblMsg.Text = "Book Saved Successfully";
             }
             catch (FaultException<ExceptionMessage> exceptionFromService)
             {
                 if (ButtonInsert.Visible == true)
                 {
-                    lblMsg.Text = "Error while adding new customer details :" + exceptionFromService.Detail.errorMessageOfAction;
+                    lblMsg.Text = "Error while adding new book details :" + exceptionFromService.Detail.errorMessageOfAction;
                 }
                 else
                 {
-                    lblMsg.Text = "Error while updating customer details :" + exceptionFromService.Detail.errorMessageOfAction;
+                    lblMsg.Text = "Error while updating book details :" + exceptionFromService.Detail.errorMessageOfAction;
                 }
             }
             catch (Exception exception)
             {
                 if (ButtonInsert.Visible == true)
                 {
-                    lblMsg.Text = "Error while adding new customer details :" + exception.Message;
+                    lblMsg.Text = "Error while adding new book details :" + exception.Message;
                 }
                 else
                 {
-                    lblMsg.Text = "Error while updating customer details :" + exception.Message;
+                    lblMsg.Text = "Error while updating book details :" + exception.Message;
                 }
             }
 
@@ -111,11 +111,11 @@ namespace WcfDemoWebApp
             }
             catch (FaultException<ExceptionMessage> exceptionFromService)
             {
-                lblMsg.Text = "Error while deleteing student details :" + exceptionFromService.Detail.errorMessageOfAction;
+                lblMsg.Text = "Error while deleting book :" + exceptionFromService.Detail.errorMessageOfAction;
             }
             catch (Exception exception)
             {
-                lblMsg.Text = "Error while deleteing student details :" + exception.Message;
+                lblMsg.Text = "Error while deleting book :" + exception.Message;
             }
         }
         protected void CancelButton_Click(object sender, EventArgs e)
