@@ -1,0 +1,71 @@
+
+CREATE TABLE [dbo].[BookDb](
+	[isbn] [int] IDENTITY(1,1) NOT NULL,
+	[title] [varchar](50) NOT NULL,
+	[author] [varchar](50) NOT NULL,
+	[pages] [int] NOT NULL,
+	[publisher] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_BookDb] PRIMARY KEY CLUSTERED 
+(
+	[isbn] ASC
+)
+) ON [PRIMARY]
+
+USE [BookDb]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetBooks]
+AS
+BEGIN
+	SELECT 
+		isbn	,
+		title	,
+		author	,
+		pages	,
+		publisher
+	FROM BookDetails
+END
+
+USE [BookDb]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[InsertBook]
+	@isbn		INT		,
+	@title		VARCHAR(50)	,
+	@author		VARCHAR(150),
+	@pages		INT	,
+	@publisher		VARCHAR(50)
+AS
+
+IF(@isbn= 0)
+BEGIN
+	INSERT INTO BookDetails
+	(
+		title	,
+		author	,
+		pages	,
+		publisher
+	)
+	values
+	(
+		@title	,
+		@author	,
+		@pages	,
+		@publisher
+	)
+END
+ELSE
+BEGIN
+	UPDATE BookDetails
+	SET title = @title	,
+	author = @author		,
+	pages = @pages	,
+	publisher = @publisher
+	WHERE isbn = @isbn
+END

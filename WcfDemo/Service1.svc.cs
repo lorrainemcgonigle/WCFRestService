@@ -20,6 +20,7 @@ namespace WcfDemo
             DataTable resourceTable = new DataTable();
             SqlDataReader resultReader = null;
             SqlConnection connection = new SqlConnection(ConnectionString);
+            //GetBooks is the stored procedure from the database
             SqlCommand command = new SqlCommand("GetBooks", connection);
             command.CommandType = CommandType.StoredProcedure;
             try
