@@ -13,23 +13,32 @@ namespace WcfDemo
 {
     public class Service1 : IService1
     {
+        //create the connection string
         public static String ConnectionString = ConfigurationManager.ConnectionStrings["MyDbConn"].ConnectionString;
         public List<Book> GetBooks()
         {
             List<Book> BookList = new List<Book>();
             DataTable resourceTable = new DataTable();
+            //datareader object is used to hold the data specified by the query
             SqlDataReader resultReader = null;
+            //create the connection with the db
             SqlConnection connection = new SqlConnection(ConnectionString);
             //GetBooks is the stored procedure from the database
+            //sqlCommand is used to perform operations of reading and writing 
             SqlCommand command = new SqlCommand("GetBooks", connection);
             command.CommandType = CommandType.StoredProcedure;
             try
             {
+                //open the connection
                 connection.Open();
+                //execute the datareader command to fetch the rows
+                //ExecuteReader returns an object to iterate over
                 resultReader = command.ExecuteReader();
                 resourceTable.Load(resultReader);
                 resultReader.Close();
+                //close the connection
                 connection.Close();
+                //put the details into our booklist
                 BookList = (from DataRow dr in resourceTable.Rows
                                select new Book()
                                {
@@ -49,6 +58,7 @@ namespace WcfDemo
                 }
                 throw new FaultException<ExceptionMessage>(new ExceptionMessage(exception.Message));
             }
+            //return the list
             return BookList;
         }
 
@@ -66,6 +76,7 @@ namespace WcfDemo
                     command.Parameters.Add(new SqlParameter("@author", newBook.author));
                     command.Parameters.Add(new SqlParameter("@pages", newBook.pages));
                     command.Parameters.Add(new SqlParameter("@publisher", newBook.publisher));
+                    //ExecuteScaler can be used when only one value is being returned
                     object result = command.ExecuteScalar();
                     connection.Close();
                 }
@@ -86,6 +97,7 @@ namespace WcfDemo
                     SqlCommand command = new SqlCommand("DeleteBook", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@isbn", isbn));
+                    //ExecuteNonQuery doesnt return data
                     int result = command.ExecuteNonQuery();
                     connection.Close();
                 }
