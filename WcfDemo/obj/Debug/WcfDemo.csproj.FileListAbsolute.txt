@@ -3,9 +3,9 @@ c:\users\lorra\documents\visual studio 2015\Projects\WcfDemo\bin\WcfDemo.dll
 c:\users\lorra\documents\visual studio 2015\Projects\WcfDemo\bin\WcfDemo.pdb
 c:\users\lorra\documents\visual studio 2015\Projects\WcfDemo\obj\Debug\WcfDemo.dll
 c:\users\lorra\documents\visual studio 2015\Projects\WcfDemo\obj\Debug\WcfDemo.pdb
-C:\Users\lorra\Documents\Visual Studio 2015\Projects\WCFRestService\WcfDemo\bin\WcfDemo.dll.config
 C:\Users\lorra\Documents\Visual Studio 2015\Projects\WCFRestService\WcfDemo\bin\WcfDemo.dll
 C:\Users\lorra\Documents\Visual Studio 2015\Projects\WCFRestService\WcfDemo\bin\WcfDemo.pdb
 C:\Users\lorra\Documents\Visual Studio 2015\Projects\WCFRestService\WcfDemo\obj\Debug\WcfDemo.csprojResolveAssemblyReference.cache
 C:\Users\lorra\Documents\Visual Studio 2015\Projects\WCFRestService\WcfDemo\obj\Debug\WcfDemo.dll
 C:\Users\lorra\Documents\Visual Studio 2015\Projects\WCFRestService\WcfDemo\obj\Debug\WcfDemo.pdb
+C:\Users\lorra\Documents\Visual Studio 2015\Projects\WCFRestService\WcfDemo\bin\WcfDemo.dll.config
